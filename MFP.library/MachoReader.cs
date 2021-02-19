@@ -9,7 +9,7 @@ using MFP.library.Objects;
 
 namespace MFP.library
 {
-    public class MachoReader : IDisposable
+    public class MachoReader
     {
         private static MachoFormat ParseMagicBytes(uint magicBytes)
         {
@@ -25,6 +25,11 @@ namespace MFP.library
 
         public static List<MachoBinary> Read(string fileName)
         {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
             if (!File.Exists(fileName))
             {
                 throw new FileNotFoundException("File does exist", fileName);
@@ -59,11 +64,6 @@ namespace MFP.library
                 default:
                     return new List<MachoBinary> { MachoBinary.Load(bReader, binaryFormat) };
             }
-        }
-        
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
         }
     }
 }
