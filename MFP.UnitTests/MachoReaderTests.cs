@@ -26,7 +26,7 @@ namespace MFP.UnitTests
 
             Assert.IsNotNull(result);
 
-            Assert.IsTrue(result.Where(a => a.Format == MachoFormat.AMD64).Count() == 1);
+            Assert.IsTrue(result.Count(a => a.Format == MachoFormat.AMD64) == 1);
         }
     }
 }
