@@ -21,6 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Samples\EmptyFile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Samples\Macho_AMD64">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

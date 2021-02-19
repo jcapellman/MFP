@@ -12,6 +12,8 @@ namespace MFP.UnitTests
     [TestClass]
     public class MachoReaderTests
     {
+        private string GetFullUnitTestPath(string sample) => Path.Combine(AppContext.BaseDirectory, "Samples", sample);
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void MachoReader_NullFileName()
@@ -20,9 +22,17 @@ namespace MFP.UnitTests
         }
 
         [TestMethod]
+        public void MachoReader_InvalidEmptyFile()
+        {
+            var result = MachoReader.Read(fileName: GetFullUnitTestPath("EmptyFile"));
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
         public void MachoReader_ValidAMD64()
         {
-            var result = MachoReader.Read(fileName: Path.Combine(AppContext.BaseDirectory, "Samples", "Macho_AMD64"));
+            var result = MachoReader.Read(fileName: GetFullUnitTestPath("Macho_AMD64"));
 
             Assert.IsNotNull(result);
 
