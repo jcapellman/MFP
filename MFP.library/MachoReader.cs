@@ -44,6 +44,11 @@ namespace MFP.library
         {
             using var bReader = new BinaryReader(stream, Encoding.UTF8, true);
 
+            if (stream.Length < sizeof(uint))
+            {
+                return null;
+            }
+
             var binaryFormat = ParseMagicBytes(bReader.ReadUInt32());
 
             switch (binaryFormat)
