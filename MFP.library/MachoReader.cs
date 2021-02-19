@@ -11,18 +11,6 @@ namespace MFP.library
 {
     public class MachoReader
     {
-        private static MachoFormat ParseMagicBytes(uint magicBytes)
-        {
-            return magicBytes switch
-            {
-                Constants.FILEMAGIC_I386 => MachoFormat.I386,
-                Constants.FILEMAGIC_AMD64 => MachoFormat.AMD64,
-                Constants.FILEMAGIC_ARM64 => MachoFormat.ARM64,
-                Constants.FILEMAGIC_MULTI => MachoFormat.MULTI,
-                _ => MachoFormat.UNKNOWN,
-            };
-        }
-
         public static List<MachoBinary> Read(string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
@@ -49,26 +37,14 @@ namespace MFP.library
                 return null;
             }
 
-            var binaryFormat = ParseMagicBytes(bReader.ReadUInt32());
+            var binaryFormat = bReader.GetFormat();
 
-            switch (binaryFormat)
+            return binaryFormat switch
             {
-                case MachoFormat.UNKNOWN:
-                    return null;
-                case MachoFormat.MULTI:
-                {
-                    var result = new List<MachoBinary>();
-
-                    // TODO: Handle multiple binaries
-
-                    return result;
-                }
-                case MachoFormat.I386:
-                case MachoFormat.AMD64:
-                case MachoFormat.ARM64:
-                default:
-                    return new List<MachoBinary> { MachoBinary.Load(bReader, binaryFormat) };
-            }
+                MachoFormat.UNKNOWN => null,
+                MachoFormat.MULTI => FatBinary.Load(stream),
+                _ => new List<MachoBinary> { MachoBinary.Load(bReader, binaryFormat) },
+            };
         }
     }
 }
