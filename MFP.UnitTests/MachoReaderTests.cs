@@ -38,5 +38,15 @@ namespace MFP.UnitTests
 
             Assert.IsTrue(result.Count(a => a.Format == MachoFormat.AMD64) == 1);
         }
+
+        [TestMethod]
+        public void MachoReader_ValidMulti()
+        {
+            var result = MachoReader.Read(fileName: GetFullUnitTestPath("Macho_MULTI"));
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count == 2);
+            Assert.IsTrue(result.Count(a => a.Format == MachoFormat.I386) == 0);
+        }
     }
 }
