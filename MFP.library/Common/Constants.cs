@@ -10,6 +10,10 @@
 
         public const uint FILEMAGIC_MULTI = 0xBEBAFECA;
 
+        public const uint CPUTYPE_ARM64 = 16777228;
+
+        public const uint CPUTYPE_AMD64 = 16777223;
+
         public const int FAT_HEADER_SIZE = 20;
     }
 }
