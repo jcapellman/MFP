@@ -30,13 +30,13 @@ namespace MFP.UnitTests
         }
 
         [TestMethod]
-        public void MachoReader_ValidAMD64()
+        public void MachoReader_ValidARM64()
         {
-            var result = MachoReader.Read(fileName: GetFullUnitTestPath("Macho_AMD64"));
+            var result = MachoReader.Read(fileName: GetFullUnitTestPath("Macho_ARM64"));
 
             Assert.IsNotNull(result);
 
-            Assert.IsTrue(result.Count(a => a.Format == MachoFormat.AMD64) == 1);
+            Assert.IsTrue(result.Count(a => a.Format == MachoFormat.ARM64) == 1);
         }
 
         [TestMethod]
@@ -47,6 +47,8 @@ namespace MFP.UnitTests
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Count == 2);
             Assert.IsTrue(result.Count(a => a.Format == MachoFormat.I386) == 0);
+            Assert.IsTrue(result.Any(a => a.Format == MachoFormat.AMD64));
+            Assert.IsTrue(result.Any(a => a.Format == MachoFormat.ARM64));
         }
     }
 }
