@@ -4,9 +4,9 @@ using MFP.library.Enums;
 
 namespace MFP.library.Common
 {
-    public static class Extensions
+    internal static class Extensions
     {
-        public static MachoFormat GetFormat(this BinaryReader bReader)
+        internal static MachoFormat GetFormat(this BinaryReader bReader)
         {
             var magicBytes = bReader.ReadUInt32();
 
