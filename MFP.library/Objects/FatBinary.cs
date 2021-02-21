@@ -12,7 +12,7 @@ namespace MFP.library.Objects
         {
             var binaries = new List<MachoBinary>();
 
-            var eReader = new EndianReader(stream, Endian.BIG);
+            var eReader = new EndianReader(stream, Endian.Big);
 
             var binaryCount = eReader.ReadUInt32();
             

@@ -2,7 +2,7 @@
 {
     public enum Endian
     {
-        BIG,
-        LITTLE
+        Big,
+        Little
     }
 }
