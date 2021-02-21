@@ -1,6 +1,6 @@
 ﻿namespace MFP.library.Common
 {
-    public class Constants
+    internal class Constants
     {
         public const uint FILEMAGIC_I386  = 0xFEEDFACE;
 
