@@ -6,7 +6,7 @@ using MFP.library.Enums;
 
 namespace MFP.library.Common
 {
-    public class EndianReader
+    internal class EndianReader
     {
         private readonly bool _endianAdjustment;
         
