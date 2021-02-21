@@ -6,9 +6,9 @@ using MFP.library.Enums;
 
 namespace MFP.library.Objects
 {
-    public class FatBinary
+    internal class FatBinary
     {
-        public static List<MachoBinary> Load(Stream stream)
+        internal static List<MachoBinary> Load(Stream stream)
         {
             var binaries = new List<MachoBinary>();
 
