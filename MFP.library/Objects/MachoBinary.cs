@@ -9,7 +9,7 @@ namespace MFP.library.Objects
     {
         public MachoFormat Format { get; internal set; }
 
-        public static MachoBinary Load(byte[] binary)
+        internal static MachoBinary Load(byte[] binary)
         {
             using var ms = new MemoryStream(binary);
 
@@ -20,7 +20,7 @@ namespace MFP.library.Objects
             return Load(bReader, format);
         }
 
-        public static MachoBinary Load(BinaryReader bReader, MachoFormat binaryFormat)
+        internal static MachoBinary Load(BinaryReader bReader, MachoFormat binaryFormat)
         {
             var result = new MachoBinary { Format = binaryFormat };
 
