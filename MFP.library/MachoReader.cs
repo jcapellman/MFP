@@ -11,6 +11,11 @@ namespace MFP.library
 {
     public class MachoReader
     {
+        /// <summary>
+        /// Attempts to load the Macho file provided
+        /// </summary>
+        /// <param name="fileName">Full path to the Macho</param>
+        /// <returns>Null if invalid, a List collection of MachoBinary files if valid</returns>
         public static List<MachoBinary> Read(string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
@@ -28,6 +33,11 @@ namespace MFP.library
             return Read(fileStream);
         }
 
+        /// <summary>
+        /// Attempts to load the Macho file supplied via a stream
+        /// </summary>
+        /// <param name="stream">Valid stream to a Macho Binary</param>
+        /// <returns>Null if invalid, a List collection of MachoBinary files if valid</returns>
         public static List<MachoBinary> Read(Stream stream)
         {
             using var bReader = new BinaryReader(stream, Encoding.UTF8, true);
