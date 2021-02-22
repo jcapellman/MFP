@@ -19,8 +19,13 @@ namespace MFP.library.Objects.Commands
         
         public string Name { get; private set; }
 
-        internal override CommandTypes CommandTypes => CommandTypes.DyLib;
-        
+
+        internal override CommandTypes[] CommandTypes => new[]
+        {
+            Enums.CommandTypes.DyLib, Enums.CommandTypes.LazyLoadDyLib, Enums.CommandTypes.ReExportDyLib,
+            Enums.CommandTypes.UpwardDyLib, Enums.CommandTypes.WeakDyLib
+        };
+
         internal override BaseCommand InitializeCommand(BinaryReader bReader, Stream stream, uint commandSize)
         {
             // TODO: Skip for now
