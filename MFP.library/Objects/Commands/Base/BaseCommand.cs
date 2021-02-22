@@ -1,19 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+
+using MFP.library.Enums;
 
 namespace MFP.library.Objects.Commands.Base
 {
-    public class BaseCommand
+    public abstract class BaseCommand
     {
-        internal BaseCommand(BinaryReader bReader, Func<Stream> streamProvider)
-        {
-            StreamProvider = streamProvider;
+        internal abstract CommandTypes CommandTypes { get; }
 
-            BReader = bReader;
-        }
-        
-        protected readonly BinaryReader BReader;
+        internal abstract BaseCommand InitializeCommand(BinaryReader bReader, Stream stream, uint commandSize);
 
-        protected readonly Func<Stream> StreamProvider;
+        internal static List<BaseCommand> AssemblyCommands => typeof(BaseCommand).Assembly.GetTypes()
+            .Where(a => a.BaseType == typeof(BaseCommand)).Select(b => (BaseCommand)Activator.CreateInstance(b))
+            .ToList();
+
     }
 }
