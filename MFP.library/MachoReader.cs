@@ -53,7 +53,7 @@ namespace MFP.library
             {
                 MachoFormat.UNKNOWN => null,
                 MachoFormat.MULTI => FatBinary.Load(stream),
-                _ => new List<MachoBinary> { MachoBinary.Load(bReader, binaryFormat) },
+                _ => new List<MachoBinary> { MachoBinary.Load(stream, bReader, binaryFormat) },
             };
         }
     }
