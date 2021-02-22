@@ -34,16 +34,20 @@ namespace MFP.library.Objects
 
             for (var x = 0; x < commandCount; x++)
             {
-                if (!Enum.TryParse(bReader.ReadUInt32().ToString(), out CommandTypes commandType))
+                var commandTypeInt = bReader.ReadUInt32();
+
+                if (!Enum.IsDefined(typeof(CommandTypes), commandTypeInt))
                 {
-                    // TODO: Error handling
+                    // TODO: Error Handling
 
                     continue;
                 }
 
+                var commandType = (CommandTypes) commandTypeInt;
+
                 var commandSize = bReader.ReadUInt32();
 
-                var command = availableCommands.FirstOrDefault(a => a.CommandTypes == commandType);
+                var command = availableCommands.FirstOrDefault(a => a.CommandTypes.Contains(commandType));
 
                 if (command == null)
                 {
