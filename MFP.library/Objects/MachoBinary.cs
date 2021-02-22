@@ -34,7 +34,12 @@ namespace MFP.library.Objects
 
             for (var x = 0; x < commandCount; x++)
             {
-                var commandType = Enum.Parse<CommandTypes>(bReader.ReadUInt32().ToString());
+                if (!Enum.TryParse(bReader.ReadUInt32().ToString(), out CommandTypes commandType))
+                {
+                    // TODO: Error handling
+
+                    continue;
+                }
 
                 var commandSize = bReader.ReadUInt32();
 
