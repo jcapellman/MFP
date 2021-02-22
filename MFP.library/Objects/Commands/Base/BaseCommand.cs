@@ -9,7 +9,7 @@ namespace MFP.library.Objects.Commands.Base
 {
     public abstract class BaseCommand
     {
-        internal abstract CommandTypes CommandTypes { get; }
+        internal abstract CommandTypes[] CommandTypes { get; }
 
         internal abstract BaseCommand InitializeCommand(BinaryReader bReader, Stream stream, uint commandSize);
 
