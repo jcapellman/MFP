@@ -15,7 +15,7 @@ namespace MFP.library.Common
         public EndianReader(Stream stream, Endian endian)
         {
             this._stream = stream;
-            _endianAdjustment = endian == Endian.LITTLE ^ BitConverter.IsLittleEndian;
+            _endianAdjustment = endian == Endian.Little ^ BitConverter.IsLittleEndian;
         }
 
         public byte[] ReadBytes(int count)
