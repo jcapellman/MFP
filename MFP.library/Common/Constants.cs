@@ -15,5 +15,7 @@
         public const uint CPUTYPE_AMD64 = 16777223;
 
         public const int FAT_HEADER_SIZE = 20;
+
+        public const int ARCHITECTURE64 = 0x1000000;
     }
 }
