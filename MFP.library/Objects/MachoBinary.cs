@@ -75,7 +75,7 @@ namespace MFP.library.Objects
 
             // TODO: Skip over for now
             bReader.ReadBytes(4);
-            bReader.ReadInt32();
+            result.CpuType = (CpuTypes)bReader.ReadInt32();
             bReader.ReadBytes(4);
 
             result.FileType = (FileTypes) bReader.ReadUInt32();

@@ -42,6 +42,7 @@ namespace MFP.UnitTests
 
             Assert.IsNotNull(armResult);
 
+            Assert.IsTrue(armResult.CpuType == CpuTypes.ARM64);
             Assert.IsTrue(armResult.FileType == FileTypes.Executable);
         }
 
