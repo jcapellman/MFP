@@ -7,7 +7,7 @@ using MFP.library.Objects.Commands.Base;
 
 namespace MFP.library.Objects.Commands
 {
-    public class DyLib : BaseCommand
+    public class DyLibCommand : BaseCommand
     {
         private const int NamePropertyOffset = 24;
 
@@ -22,8 +22,7 @@ namespace MFP.library.Objects.Commands
 
         internal override CommandTypes[] CommandTypes => new[]
         {
-            Enums.CommandTypes.DyLib, Enums.CommandTypes.LazyLoadDyLib, Enums.CommandTypes.ReExportDyLib,
-            Enums.CommandTypes.UpwardDyLib, Enums.CommandTypes.WeakDyLib
+            Enums.CommandTypes.Load_Dynamic_Library
         };
 
         internal override BaseCommand InitializeCommand(BinaryReader bReader, Stream stream, uint commandSize)
