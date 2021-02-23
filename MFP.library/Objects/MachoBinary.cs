@@ -13,6 +13,10 @@ namespace MFP.library.Objects
     {
         public MachoFormat Format { get; internal set; }
 
+        public CpuTypes CpuType { get; internal set; }
+
+        public FileTypes FileType { get; internal set; }
+
         public List<BaseCommand> Commands { get; internal set; }
 
         internal static MachoBinary Load(byte[] binary)
@@ -73,7 +77,8 @@ namespace MFP.library.Objects
             bReader.ReadBytes(4);
             bReader.ReadInt32();
             bReader.ReadBytes(4);
-            bReader.ReadUInt32();
+
+            result.FileType = (FileTypes) bReader.ReadUInt32();
 
             var commandCount = bReader.ReadInt32();
 
