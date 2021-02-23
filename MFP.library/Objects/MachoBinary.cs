@@ -17,6 +17,8 @@ namespace MFP.library.Objects
 
         public FileTypes FileType { get; internal set; }
 
+        public int CommandSize { get; internal set; }
+
         public List<BaseCommand> Commands { get; internal set; }
 
         internal static MachoBinary Load(byte[] binary)
@@ -70,26 +72,23 @@ namespace MFP.library.Objects
         {
             var result = new MachoBinary { Format = binaryFormat };
             
-            // Reset to the beginning to ensure nothing could interfere with the offsets
-            stream.Seek(0, SeekOrigin.Begin);
-
-            // TODO: Skip over for now
-            bReader.ReadBytes(4);
+            // Reset to the beginning right after the binaryFormat 4 bytes
+            stream.Seek(4, SeekOrigin.Begin);
+            
             result.CpuType = (CpuTypes)bReader.ReadInt32();
-            bReader.ReadBytes(4);
+            bReader.ReadBytes(4); // TODO: CPU Subtype Mapping
 
             result.FileType = (FileTypes) bReader.ReadUInt32();
 
             var commandCount = bReader.ReadInt32();
-
-            // TODO: Skip over for now
-            bReader.ReadInt32();
-            bReader.ReadBytes(4);
+            
+            result.CommandSize = bReader.ReadInt32();
+            bReader.ReadBytes(4); // TODO: Flags
 
             // Reserved for 64bit Binaries
             if (result.CpuType.IsCpu64bit())
             {
-                bReader.ReadBytes(4);
+                bReader.ReadBytes(4); // TODO: Store?
             }
             
             result.Commands = ParseCommands(bReader, stream, commandCount);
