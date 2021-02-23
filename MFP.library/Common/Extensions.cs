@@ -33,5 +33,8 @@ namespace MFP.library.Common
                     return MachoFormat.UNKNOWN;
             }
         }
+
+        internal static bool IsCpu64bit(this CpuTypes cpuType) =>
+            cpuType == CpuTypes.ARM64 || cpuType == CpuTypes.PowerPC64 || cpuType == CpuTypes.x64;
     }
 }

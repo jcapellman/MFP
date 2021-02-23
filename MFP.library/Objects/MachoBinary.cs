@@ -87,7 +87,7 @@ namespace MFP.library.Objects
             bReader.ReadBytes(4);
 
             // Reserved for 64bit Binaries
-            if (binaryFormat == MachoFormat.AMD64 || binaryFormat == MachoFormat.ARM64)
+            if (result.CpuType.IsCpu64bit())
             {
                 bReader.ReadBytes(4);
             }
