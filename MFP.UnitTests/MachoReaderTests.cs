@@ -12,7 +12,7 @@ namespace MFP.UnitTests
     [TestClass]
     public class MachoReaderTests
     {
-        private string GetFullUnitTestPath(string sample) => Path.Combine(AppContext.BaseDirectory, "Samples", sample);
+        private static string GetFullUnitTestPath(string sample) => Path.Combine(AppContext.BaseDirectory, "Samples", sample);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -35,8 +35,14 @@ namespace MFP.UnitTests
             var result = MachoReader.Read(fileName: GetFullUnitTestPath("Macho_ARM64"));
 
             Assert.IsNotNull(result);
-
+            
             Assert.IsTrue(result.Count(a => a.Format == MachoFormat.ARM64) == 1);
+
+            var armResult = result.FirstOrDefault();
+
+            Assert.IsNotNull(armResult);
+
+            Assert.IsTrue(armResult.FileType == FileTypes.Executable);
         }
 
         [TestMethod]
@@ -46,7 +52,7 @@ namespace MFP.UnitTests
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Count == 2);
-            Assert.IsTrue(result.Count(a => a.Format == MachoFormat.I386) == 0);
+            Assert.IsFalse(result.Any(a => a.Format == MachoFormat.I386));
             Assert.IsTrue(result.Any(a => a.Format == MachoFormat.AMD64));
             Assert.IsTrue(result.Any(a => a.Format == MachoFormat.ARM64));
         }
