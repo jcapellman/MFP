@@ -17,6 +17,8 @@ namespace MFP.library.Objects
 
         public FileTypes FileType { get; internal set; }
 
+        public Flags Flags { get; internal set; }
+
         public int CommandSize { get; internal set; }
 
         public List<BaseCommand> Commands { get; internal set; }
