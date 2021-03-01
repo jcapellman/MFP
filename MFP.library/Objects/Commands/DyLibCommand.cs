@@ -25,7 +25,7 @@ namespace MFP.library.Objects.Commands
             Enums.CommandTypes.Load_Dynamic_Library
         };
 
-        internal override BaseCommand InitializeCommand(BinaryReader bReader, Stream stream, uint commandSize)
+        internal override BaseCommand InitializeCommand(BinaryReader bReader, Stream stream, uint commandSize, CpuTypes cpuType)
         {
             // TODO: Skip for now
             bReader.ReadBytes(4);
