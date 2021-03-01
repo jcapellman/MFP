@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
 using System.Text;
 
 using MFP.library.Common;
@@ -27,7 +25,7 @@ namespace MFP.library.Objects.Commands
 
         internal override CommandTypes[] CommandTypes => new[] { Enums.CommandTypes.Segment, Enums.CommandTypes.Segment_64 };
 
-        internal override BaseCommand InitializeCommand(BinaryReader bReader, Stream stream, uint commandSize, CpuTypes cpuType)
+        internal override BaseCommand LoadCommand()
         {
             Name = Encoding.UTF8.GetString(bReader.ReadBytes(16).TakeWhile(a => a != 0).ToArray());
 
