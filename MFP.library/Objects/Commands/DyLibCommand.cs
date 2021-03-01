@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Text;
 
 using MFP.library.Enums;
 using MFP.library.Objects.Commands.Base;
@@ -11,9 +9,9 @@ namespace MFP.library.Objects.Commands
     {
         private const int NamePropertyOffset = 24;
 
-        public long TimeStamp { get; private set; }
+        public ulong TimeStamp { get; private set; }
 
-        public long CurrentVersion { get; private set; }
+        public int CurrentVersion { get; private set; }
         
         public long CompatibilityVersion { get; private set; }
         
@@ -28,15 +26,15 @@ namespace MFP.library.Objects.Commands
         internal override BaseCommand LoadCommand()
         {
             // TODO: Skip for now
-            bReader.ReadBytes(4);
+            SkipBytes();
 
-            TimeStamp = bReader.ReadInt32();
+            TimeStamp = ReadUnsignedInt();
 
-            CurrentVersion = bReader.ReadInt32();
+            CurrentVersion = ReadInt32();
 
-            CompatibilityVersion = bReader.ReadInt32();
+            CompatibilityVersion = ReadInt32();
 
-            Name = Encoding.UTF8.GetString(bReader.ReadBytes(Convert.ToInt32(commandSize) - NamePropertyOffset)).TrimEnd('\0');
+            Name = GetString(Convert.ToInt32(CommandSize) - NamePropertyOffset);
 
             return this;
         }
