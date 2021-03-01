@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Text;
 
 using MFP.library.Common;
 using MFP.library.Enums;
@@ -27,7 +26,7 @@ namespace MFP.library.Objects.Commands
 
         internal override BaseCommand LoadCommand()
         {
-            Name = Encoding.UTF8.GetString(bReader.ReadBytes(16).TakeWhile(a => a != 0).ToArray());
+            Name = GetString();
 
             return this;
         }
