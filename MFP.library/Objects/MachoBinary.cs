@@ -34,7 +34,7 @@ namespace MFP.library.Objects
             return Load(ms, bReader, format);
         }
         
-        private static List<BaseCommand> ParseCommands(BinaryReader bReader, Stream stream, int commandCount)
+        private static List<BaseCommand> ParseCommands(BinaryReader bReader, Stream stream, int commandCount, CpuTypes cpuType)
         {
             var commands = new List<BaseCommand>();
 
@@ -64,7 +64,7 @@ namespace MFP.library.Objects
                     continue;
                 }
                 
-                commands.Add(command.InitializeCommand(bReader, stream, commandSize));
+                commands.Add(command.InitializeCommand(bReader, stream, commandSize, cpuType));
             }
 
             return commands;
@@ -93,7 +93,7 @@ namespace MFP.library.Objects
                 bReader.ReadBytes(4); // TODO: Store?
             }
             
-            result.Commands = ParseCommands(bReader, stream, commandCount);
+            result.Commands = ParseCommands(bReader, stream, commandCount, result.CpuType);
         
             return result;
         }
