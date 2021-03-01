@@ -11,7 +11,7 @@ namespace MFP.library.Objects.Commands.Base
     {
         internal abstract CommandTypes[] CommandTypes { get; }
 
-        internal abstract BaseCommand InitializeCommand(BinaryReader bReader, Stream stream, uint commandSize);
+        internal abstract BaseCommand InitializeCommand(BinaryReader bReader, Stream stream, uint commandSize, CpuTypes cpuType);
 
         internal static List<BaseCommand> AssemblyCommands => typeof(BaseCommand).Assembly.GetTypes()
             .Where(a => a.BaseType == typeof(BaseCommand)).Select(b => (BaseCommand)Activator.CreateInstance(b))
