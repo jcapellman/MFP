@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+
 using MFP.library.Common;
 using MFP.library.Enums;
 
@@ -14,7 +15,7 @@ namespace MFP.library.Objects.Commands.Base
 
         private CpuTypes _cpuTypes;
 
-        private Stream _stream;
+        protected Stream _stream;
 
         protected uint CommandSize;
 
@@ -39,7 +40,35 @@ namespace MFP.library.Objects.Commands.Base
 
         protected ulong ReadUnsignedInt() => _cpuTypes.IsCpu64bit() ? _binaryReader.ReadUInt64() : _binaryReader.ReadUInt32();
 
+        protected long ReadBitAwareInt() => _cpuTypes.IsCpu64bit() ? _binaryReader.ReadInt64() : _binaryReader.ReadInt32();
+
         protected int ReadInt32() => _binaryReader.ReadInt32();
+
+        protected byte[] ReadSkipBytes(int size, Dictionary<string, long> exceptionsToQueue = null)
+        {
+            var resultBytes = new byte[size];
+
+            for (var x = size; x > 0; x--)
+            {
+                var result = _stream.Read(resultBytes, resultBytes.Length - x, x);
+
+                if (result != 0)
+                {
+                    continue;
+                }
+
+                if (exceptionsToQueue == null)
+                {
+                    continue;
+                }
+
+                Array.Resize(ref resultBytes, resultBytes.Length - x);
+
+                return resultBytes;
+            }
+
+            return resultBytes;
+        }
 
         protected void SkipBytes(int skipBytes = 4) => _binaryReader.ReadBytes(skipBytes);
 
